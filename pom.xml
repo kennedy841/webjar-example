@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>it.naps.webjar</groupId>
+    <artifactId>webjar-example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+        <properties>
+            <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${project.version}</destDir>
+        </properties>
+
+
+        <build>
+            <pluginManagement>
+                <plugins>
+                    <!--This plugin's configuration is used to store Eclipse m2e settings
+                        only. It has no influence on the Maven build itself. -->
+                    <plugin>
+                        <groupId>org.eclipse.m2e</groupId>
+                        <artifactId>lifecycle-mapping</artifactId>
+                        <version>1.0.0</version>
+                        <configuration>
+                            <lifecycleMappingMetadata>
+                                <pluginExecutions>
+                                    <pluginExecution>
+                                        <pluginExecutionFilter>
+                                            <groupId>org.apache.maven.plugins</groupId>
+                                            <artifactId>maven-antrun-plugin</artifactId>
+                                            <versionRange>[1.7,)</versionRange>
+                                            <goals>
+                                                <goal>run</goal>
+                                            </goals>
+                                        </pluginExecutionFilter>
+                                        <action>
+                                            <execute />
+                                        </action>
+                                    </pluginExecution>
+                                </pluginExecutions>
+                            </lifecycleMappingMetadata>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </pluginManagement>
+
+
+            <plugins>
+
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+                    <executions>
+                        <execution>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <echo message="download financial research app from nexus" />
+                                    <get src="http://localhost:8081/repository/npm-releases/angular2-sampleapp/-/angular2-sampleapp-0.0.0.tgz" dest="${project.build.directory}/app.zip"></get>
+                                    <echo message="unzip archive" />
+                                    <untar src="${project.build.directory}/app.zip" dest="${project.build.directory}/fe" compression="gzip"></untar>
+                                    <copy todir="${destDir}/de">
+                                        <fileset dir="corneronline-de" />
+                                        <mapper>
+                                            <chainedmapper>
+                                                <filtermapper>
+                                                    <replaceregex
+                                                            pattern="(.*)(\.\w*\.(js))"
+                                                            replace="\1.js" />
+                                                    <replaceregex
+                                                            pattern="(.*)(\.\w*\.(css))"
+                                                            replace="\1.css" />
+
+                                                </filtermapper>
+                                            </chainedmapper>
+                                        </mapper>
+
+                                    </copy>
+                                    <copy todir="${destDir}/en">
+                                        <fileset dir="corneronline-en" />
+                                        <mapper>
+                                            <chainedmapper>
+                                                <filtermapper>
+                                                    <replaceregex
+                                                            pattern="(.*)(\.\w*\.(js))"
+                                                            replace="\1.js" />
+                                                    <replaceregex
+                                                            pattern="(.*)(\.\w*\.(css))"
+                                                            replace="\1.css" />
+
+                                                </filtermapper>
+                                            </chainedmapper>
+                                        </mapper>
+                                    </copy>
+                                    <copy todir="${destDir}/it">
+                                        <fileset dir="corneronline-it" />
+                                        <mapper>
+                                            <chainedmapper>
+                                                <filtermapper>
+                                                    <replaceregex
+                                                            pattern="(.*)(\.\w*\.(js))"
+                                                            replace="\1.js" />
+                                                    <replaceregex
+                                                            pattern="(.*)(\.\w*\.(css))"
+                                                            replace="\1.css" />
+
+                                                </filtermapper>
+                                            </chainedmapper>
+                                        </mapper>
+                                    </copy>
+                                    <copy todir="${destDir}/fr">
+                                        <fileset dir="corneronline-fr" />
+                                        <mapper>
+                                            <chainedmapper>
+                                                <filtermapper>
+                                                    <replaceregex
+                                                            pattern="(.*)(\.\w*\.(js))"
+                                                            replace="\1.js" />
+                                                    <replaceregex
+                                                            pattern="(.*)(\.\w*\.(css))"
+                                                            replace="\1.css" />
+
+                                                </filtermapper>
+                                            </chainedmapper>
+                                        </mapper>
+                                    </copy>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+
+            </plugins>
+
+        </build>
+
+
+
+
+</project>
